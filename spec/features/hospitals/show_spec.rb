@@ -15,10 +15,13 @@ RSpec.describe 'Hospital Show Page', type: :feature do
     @patient_1 = Patient.create!(name: 'Jim Carey', age: 24)
     @patient_2 = Patient.create!(name: 'Denny Denise', age: 39)
     @patient_3 = Patient.create!(name: 'Sally Sue', age: 19)
+    @patient_4 = Patient.create!(name: 'Billy Bob', age: 19)
 
     PatientDoctor.create!(patient_id: @patient_1.id, doctor_id: @doctor_1.id)
     PatientDoctor.create!(patient_id: @patient_2.id, doctor_id: @doctor_1.id)
     PatientDoctor.create!(patient_id: @patient_3.id, doctor_id: @doctor_2.id)
+    PatientDoctor.create!(patient_id: @patient_4.id, doctor_id: @doctor_1.id)
+    PatientDoctor.create!(patient_id: @patient_4.id, doctor_id: @doctor_2.id)
   end
 
   describe 'Extension' do
@@ -40,7 +43,16 @@ RSpec.describe 'Hospital Show Page', type: :feature do
         expect(page).to_not have_content(@doctor_5.name)
       end
     end
-    it 'next to each doctor is the number of patients associate with them'
+    it 'next to each doctor is the number of patients associate with them' do
+      visit hospital_path(@hospital_1)
+        within "#doctor-id-#{@doctor_1.id}" do
+          expect(page).to have_content("Number of Patients: 3")
+        end
+        save_and_open_page
+        within "#doctor-id-#{@doctor_2.id}" do
+          expect(page).to have_content("Number of Patients: 2")
+        end
+    end
     it 'orders the from most number of patients to least'
   end
 # When I visit a hospital's show page

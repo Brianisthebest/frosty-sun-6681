@@ -2,6 +2,7 @@
 
 <div id="doctor-info">
   <% @hospital.doctor_names.each do |doctor| %>
-    <%= doctor.name  %>
+  <div id="doctor-id-<%= doctor.id %>">
+    <p><%= doctor.name  %> - Number of Patients: <%= doctor.patient_count %></p>
   <% end %>
 </div>
