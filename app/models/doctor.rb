@@ -10,4 +10,8 @@ class Doctor < ApplicationRecord
   def doctor_patients
     patients
   end
+
+  def patient_count
+    patients.size
+  end
 end
