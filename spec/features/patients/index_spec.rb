@@ -21,7 +21,7 @@ RSpec.describe 'Patient Index Page', type: :feature do
       within "#patient-#{@patient_2.id}" do
         expect(page).to have_content(@patient_2.name)
       end
-      save_and_open_page
+
       within "#patient-#{@patient_3.id}" do
         expect(page).to have_content(@patient_3.name)
       end
@@ -33,9 +33,3 @@ RSpec.describe 'Patient Index Page', type: :feature do
     end
   end
 end
-
-# User Story 3, Patient Index Page
-# As a visitor
-# When I visit the patient index page
-# I see the names of all adult patients (age is greater than 18),
-# And I see the names are in ascending alphabetical order (A - Z, 
