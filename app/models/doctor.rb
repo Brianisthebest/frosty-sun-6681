@@ -1,6 +1,6 @@
 class Doctor < ApplicationRecord
   belongs_to :hospital
-  has_many :patient_doctors
+  has_many :patient_doctors, dependent: :destroy
   has_many :patients, through: :patient_doctors
 
   def hospital_name
@@ -8,6 +8,6 @@ class Doctor < ApplicationRecord
   end
   
   def doctor_patients
-    patients.pluck(:name)
+    patients
   end
 end

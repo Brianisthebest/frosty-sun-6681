@@ -31,8 +31,8 @@ RSpec.describe Doctor do
     
     describe '#doctor_patients' do
       it 'lists the doctors patients names' do
-        expect(@doctor_1.doctor_patients).to eq([@patient_1.name, @patient_2.name])
-        expect(@doctor_2.doctor_patients).to eq([@patient_3.name])
+        expect(@doctor_1.doctor_patients).to eq([@patient_1, @patient_2])
+        expect(@doctor_2.doctor_patients).to eq([@patient_3])
       end
     end
   end

@@ -60,7 +60,7 @@ RSpec.describe 'Doctor Show Page', type: :feature do
         expect(page).to have_content(@patient_2.name)
         expect(page).to_not have_content(@patient_3.name)
       end
-save_and_open_page
+
       visit doctor_path(@doctor_2)
 
       within '#patient-info' do
@@ -69,14 +69,44 @@ save_and_open_page
         expect(page).to_not have_content(@patient_2.name)
       end
     end
+  end
 
+  describe 'User Story 2: Removing a patient' do
+    it 'I see a button next to each patient to remove them from the doctor' do
+      visit doctor_path(@doctor_1)
+
+      within '#patient-info' do
+        expect(page).to have_button("Remove #{@patient_1.name}")
+      end
+    end
+
+    it 'when I click that button, I am brought back to the doctor show page and I no longer see that patient listed' do
+      PatientDoctor.create!(patient_id: @patient_1.id, doctor_id: @doctor_2.id)
+      visit doctor_path(@doctor_1)
+
+      within '#patient-info' do
+        click_link "Remove #{@patient_1.name}"
+
+        expect(current_path).to eq(doctor_path(@doctor_1))
+        expect(page).to have_content(@patient_2.name)
+        expect(page).to_not have_content(@patient_1.name)
+      end
+
+      visit doctor_path(@doctor_2)
+
+      within '#patient-info' do
+        expect(page).to have_content(@patient_1.name)
+      end
+    end
+
+    it 'when I visit a different doctors show page that is caring for the same patient, I see that the patient is still on the other doctors caseload'
 # As a visitor
-# When I visit a doctor's show page
-# I see all of that doctor's information including:
-#  - name
-#  - specialty
-#  - university where they got their doctorate
-# And I see the name of the hospital where this doctor works
-# And I see the names of all of the patients this doctor has
+# When I visit a Doctor's show page
+# Then next to each patient's name, I see a button to remove that patient from that doctor's caseload
+# When I click that button for one patient
+# I'm brought back to the Doctor's show page
+# And I no longer see that patient's name listed
+# And when I visit a different doctor's show page that is caring for the same patient,
+# Then I see that the patient is still on the other doctor's caseload
   end
 end
