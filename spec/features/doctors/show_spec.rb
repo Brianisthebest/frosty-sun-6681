@@ -21,6 +21,7 @@ RSpec.describe 'Doctor Show Page', type: :feature do
     it 'I can see all of the doctors information, including name, specialty, and university' do
       visit doctor_path(@doctor_1)
 
+      expect(page).to have_content("Doctors Show Page")
       within '#doctor-info' do
         expect(page).to have_content(@doctor_1.name)
         expect(page).to have_content("Specialty: #{@doctor_1.specialty}")
@@ -76,7 +77,7 @@ RSpec.describe 'Doctor Show Page', type: :feature do
       visit doctor_path(@doctor_1)
 
       within '#patient-info' do
-        expect(page).to have_button("Remove #{@patient_1.name}")
+        expect(page).to have_link("Remove #{@patient_1.name}")
       end
     end
 
@@ -98,15 +99,5 @@ RSpec.describe 'Doctor Show Page', type: :feature do
         expect(page).to have_content(@patient_1.name)
       end
     end
-
-    it 'when I visit a different doctors show page that is caring for the same patient, I see that the patient is still on the other doctors caseload'
-# As a visitor
-# When I visit a Doctor's show page
-# Then next to each patient's name, I see a button to remove that patient from that doctor's caseload
-# When I click that button for one patient
-# I'm brought back to the Doctor's show page
-# And I no longer see that patient's name listed
-# And when I visit a different doctor's show page that is caring for the same patient,
-# Then I see that the patient is still on the other doctor's caseload
   end
 end
