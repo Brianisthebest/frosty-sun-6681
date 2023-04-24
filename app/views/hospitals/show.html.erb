@@ -1,1 +1,7 @@
 <h1><%= @hospital.name %></h1>
+
+<div id="doctor-info">
+  <% @hospital.doctor_names.each do |doctor| %>
+    <%= doctor.name  %>
+  <% end %>
+</div>
