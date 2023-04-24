@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   resources :doctors, only: [:show] do
     resources :patient, only: [:destroy], controller: 'patient_doctors'
   end
+
+  resources :patients, only: [:index]
 end
