@@ -23,6 +23,7 @@ RSpec.describe 'Hospital Show Page', type: :feature do
 
       expect(page).to have_content(@hospital_1.name)
     end
+    
     it 'I see the names of all the doctors that work at this hospital'
     it 'next to each doctor is the number of patients associate with them'
     it 'orders the from most number of patients to least'
